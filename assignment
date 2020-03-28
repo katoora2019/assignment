@@ -1,0 +1,184 @@
+class Turtle {
+  constructor (x, y){
+      this.x = x;
+      this.y = y;
+      this.angle = 0;
+      this.direction = 'East'
+      this.coordinates = [];
+      this.tPath = [];
+  }
+  
+  //Turtle will move forward in the direction based on its current angle
+
+  forward(moves) {
+      if (moves === NaN || moves === undefined || moves === null){
+          moves = 0;
+      }
+      if (this.angle < 0){
+          this.direction = 'North'
+          this.angle = 90
+          for (let i = 1; i<= moves; i++){
+              this.coordinates.push([this.x, this.y]);
+              this.y--; 
+          }
+          return this;
+
+      } else if (this.angle < 180){
+              this.direction = 'East'
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.x++; 
+              }
+              return this;
+
+      } else if (this.angle < 270){
+              this.direction = 'South'
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.y++; 
+              }
+              return this;
+
+      } else if (this.angle < 270){
+              this.direction = 'West'
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.x--; 
+              }
+              return this;
+
+      } else if (this.angle === 360){
+              this.direction = 'North'
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.y--; 
+              }
+              return this;
+
+      } else if (this.angle > 270){
+              this.direction = 'East'
+              this.angle = 0
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.x++; 
+              }
+              return this;
+
+      } else if (this.angle < 0){
+              this.direction = 'North'
+              this.angle = 270
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.y--; 
+              }
+              return this;
+
+      } else {
+              console.log(' Turtle follow the right direction  East is ur way!!')
+              this.direction = 'East' 
+              this.angle = 0
+              for (let i = 1; i <= moves; i++){
+                  this.coordinates.push([this.x, this.y]);
+                  this.x++; 
+              }
+
+              return this;;
+          }
+  }
+
+  right() {
+      this.angle += 90;
+      return this;
+  }
+  left() {
+      this.angle -= 90;
+      return this;
+  }
+  allPoints(){
+      return console.log(this.coordinates);
+      
+  }
+  print(){
+
+      //Max will always be more than -Infinity and Min less than Infinity
+      //This takes negative coordinates into account as well
+
+      let xMax = -Infinity;
+      let xMin = Infinity;
+      let yMax = -Infinity;
+      let yMin = Infinity;
+
+      //Find the Max and Min coordinates of the total Turtle path
+
+      for (let i = 0; i < this.coordinates.length; i++) {
+          if (this.coordinates[i][0] > xMax) {
+              xMax = this.coordinates[i][0];
+          }
+          if (this.coordinates[i][0] < xMin) {
+              xMin = this.coordinates[i][0];
+          }
+          if (this.coordinates[i][1] > yMax) {
+              yMax = this.coordinates[i][1];
+          }
+          if (this.coordinates[i][1] < yMin) {
+              yMin = this.coordinates[i][1];
+          }
+      }
+      // The coordinates are set to the array based on the counter moves made
+      // through the loop and print out the final cordinates in strings.
+
+      for (let k = 0; k < this.coordinates.length; k++) {
+              this.tPath.push(this.coordinates[k].toString());
+          }
+
+      //The  grid is set according to Max and Min coordinates
+      //This will narrow the scale and allow the turtle's path to be 
+      //printed more clearly
+
+      this.grid = "";
+  
+      for (let a = yMin; a <= yMax; a++) {
+          for (let b = xMin; b <= xMax; b ++) {
+              if (this.tPath.includes(`${b},${a}`)) {   
+                  this.grid += `0`;
+              } else {  
+                  this.grid += `0`;
+              }
+          }   
+              this.grid += "\n";
+      }
+          
+          console.log(this.grid);
+  }
+}
+  
+
+
+
+const tiddles1 = new Turtle(0, 4)
+tiddles1.forward(3)
+.right()
+.forward(2)
+.left()
+.forward(2)
+.left()
+.forward(8)
+.left()
+.forward(5)
+.right()
+.right()
+.forward(5)
+
+tiddles1.allPoints()
+tiddles1.print()
+
+
+const flash = new Turtle(0, 4)
+.forward(5)
+.right()
+.forward(5)
+.right()
+.forward(5)
+.right()
+.forward(5)
+.print()
